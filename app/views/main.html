@@ -1,0 +1,24 @@
+<div class="hero-unit">
+  <h1>Speed Quiz</h1>
+    <hr/>
+    <div ng-init="randomQuestion()" ng-controller="MainCtrl">
+        <div class="alert alert-info" ng-bind-html-unsafe="indexed_questions[question_id].description"></div>
+        <table class="table table-bordered table-striped">
+            <tr ng-class="{correct: $index == $parent.correct_answer_index}" ng-repeat="answer in indexed_answers[question_id] | orderBy:sortByName">
+                <td><p><label><input type="radio" ng-click="evaluateAnswer()" value="{{answer.name}}" data-ng-model="$parent.selected_answer"> {{answer.description}}</label></p></td>
+            </tr>
+        </table>
+        <div ng-show="correct_answer">
+            <hr/>
+            <div class="pull-right"><a ng-click="randomQuestion()" class="btn btn-success">Next Question</a></div>
+            <div class="clearfix"></div>
+            <p ng-bind-html-unsafe="indexed_questions[question_id].explanation"></p>
+        </div>
+
+        <div class="pull-right">
+            <span class="label label-info">Current Score: {{guessed_correct}} / {{total_questions - 1}}</span><br/>
+            <span class="label label-success">Current %: {{current_percentage}}</span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
